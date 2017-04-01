@@ -1,4 +1,4 @@
-// Nabil Sawan
+// Nabil Sawan 
 
 #include <cstdlib>
 #include <ctime>
@@ -31,10 +31,10 @@ AVL<int> avl;
   avl.clear();
 
   std::cout << "----------------------------------------------------" << std::endl;
-  std::cout<< "DEBUG COUT Before insert." << std::endl;
+  // std::cout<< "DEBUG COUT Before insert." << std::endl;
   for (auto x : { 30, 10, 50, 48, 20 })
     avl.insert(x);
-  std::cout<< "DEBUG COUT After insert before serialize." << std::endl;
+  // std::cout<< "DEBUG COUT After insert before serialize." << std::endl;
   std::cout << avl.serialize() << std::endl;
   std::cout << "----------------------------------------------------\n" << std::endl;
 
@@ -43,8 +43,14 @@ AVL<int> avl;
   std::cout << "----------------------------------------------------" << std::endl;
   for (auto x : { 1, 2, 3, 4, 5, 6, 7 })
     avl.insert(x);
-  for (auto x : { 4, 3 })
-    avl.remove(x);
+  //std::cout << "Before remove: " << avl.serialize() << std::endl;
+  for (auto x : { 4, 3 }) {
+  	avl.remove(x);
+  	//std::cout << "Removed " << x << std::endl;
+  	//std::cout << avl.serialize() << std::endl;
+  }
+    
+  //std::cout<< "DEBUG COUT After remove. Before serialize." << std::endl;
   std::cout << avl.serialize() << std::endl;
   std::cout << "----------------------------------------------------\n" << std::endl;
 

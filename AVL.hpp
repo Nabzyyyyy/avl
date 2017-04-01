@@ -1,5 +1,5 @@
 // Nabil Sawan
-// njs62@zips.uakron.edu
+// njs62@zips.uakron.edu 
 
 #ifndef AVL_TREE_HPP
 #define AVL_TREE_HPP
@@ -204,6 +204,10 @@ void AVL<T>::clear(AVLNode<T>* n) {
   if (n != nullptr) {
   //std::cout << "Are we clearing? ";
 
+  if (n == root) {
+    root = nullptr;
+    return;
+  }
   if (n->left)
     clear(n->left);
   if (n->right)
@@ -220,9 +224,12 @@ void AVL<T>::remove(T t) {
   // find the node we'd like to remove
   AVLNode<T>* n = search(t);
   AVLNode<T>* parent;
+
   // return if node not in tree
-  if (n == nullptr)
+  if (n == nullptr) {
     return;
+  }
+
 
   // if node to delete has no children (left child == null and right child == null)
   if (n->left == nullptr && n->right == nullptr) {
@@ -236,7 +243,6 @@ void AVL<T>::remove(T t) {
       update_tree(parent);
      return;
   }
-
 
   // if node to delete has right child
 
@@ -265,31 +271,47 @@ void AVL<T>::remove(T t) {
     return;
     }
 
+
   // if node to delete has two children
     if (n->right != nullptr && n->left != nullptr) {
 
       // find the in order predeccessor
       AVLNode<T>* iop = n->left;//predeccessor = t->left; 
 
+      bool delParent = false;
+      if (iop->right == nullptr)
+        delParent = true;
       while (iop->right != nullptr)
         iop = iop->right;
       // save the iop's parent
       AVLNode<T>* parent = iop->parent;
       // assign the iop's child (if any) to it's parent 
+      if (!delParent) {
       parent->right = iop->left;
 
       //AVLNode<T>* placeholder = n; // DO I NEED THIS
       // assign the node to replace n with n's children
       iop->left = n->left;
       iop->right = n->right;
-      // now replace the node entirely
-      n = iop;
+      // now replace the node's data with iop's data
+      n->data = iop->data;
       // delete the iop that replaced n
       delete iop;
 
-    //update tree
-    update_tree(parent);
-    return;
+      //update tree
+      update_tree(parent);
+      return;
+      }
+      else {
+         n->left = iop->left;
+
+         n->data = iop->data;
+        // delete the iop that replaced n
+        delete iop;
+        //update tree
+        update_tree(parent);
+        return;
+      }
   }
 }
 
