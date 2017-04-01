@@ -31,10 +31,10 @@ AVL<int> avl;
   avl.clear();
 
   std::cout << "----------------------------------------------------" << std::endl;
-  std::cout<< "Before insert." << std::endl;
+  std::cout<< "DEBUG COUT Before insert." << std::endl;
   for (auto x : { 30, 10, 50, 48, 20 })
     avl.insert(x);
-  std::cout<< "After insert before serialize." << std::endl;
+  std::cout<< "DEBUG COUT After insert before serialize." << std::endl;
   std::cout << avl.serialize() << std::endl;
   std::cout << "----------------------------------------------------\n" << std::endl;
 
